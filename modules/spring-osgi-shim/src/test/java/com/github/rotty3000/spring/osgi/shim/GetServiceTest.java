@@ -30,7 +30,7 @@ public class GetServiceTest extends TestBase {
 	/*
 	 * For testing we'll register it so we have a service to work with.
 	 */
-    @Bean(name = "registerAFoo")
+	@Bean(name = "registerAFoo")
 	public ServiceRegistration<Foo> registerAFoo(
 			@Autowired Foo foo,
 			@Autowired OSGiShim shim) {
@@ -56,10 +56,10 @@ public class GetServiceTest extends TestBase {
 	@Autowired @Qualifier("foo1Service")
 	Supplier<Foo> foo1Service;
 
-    @Test
-    public void testFoo1ServiceRegistration() {
-    	assertNotNull(foo1Service.get());
-    }
+	@Test
+	public void testFoo1ServiceRegistration() {
+		assertNotNull(foo1Service.get());
+	}
 
 	/* ***************************************************************************************************
 	 * SCENARIO 2: Get OSGi service as bean, but it's missing or no matches
@@ -69,17 +69,16 @@ public class GetServiceTest extends TestBase {
 			// This is just to force invocation order
 			@Autowired ServiceRegistration<Foo> registerAFoo,
 			@Autowired OSGiShim shim) {
-
 		return shim.getService(Foo.class, "(foo=bar)");
 	}
 
 	@Autowired @Qualifier("foo2Service")
 	Supplier<Foo> foo2Service;
 
-    @Test
-    public void testFoo2ServiceRegistration() {
-    	assertNull(foo2Service.get());
-    }
+	@Test
+	public void testFoo2ServiceRegistration() {
+		assertNull(foo2Service.get());
+	}
 
 	/* ***************************************************************************************************
 	 * SCENARIO 3: Get OSGi service as bean, using a filter
@@ -95,9 +94,9 @@ public class GetServiceTest extends TestBase {
 	@Autowired @Qualifier("foo3Service")
 	Supplier<Foo> foo3Service;
 
-    @Test
-    public void testFoo3ServiceRegistration() {
-    	assertNotNull(foo3Service.get());
-    }
+	@Test
+	public void testFoo3ServiceRegistration() {
+		assertNotNull(foo3Service.get());
+	}
 
 }

@@ -49,16 +49,16 @@ public class RegisterServiceTest extends TestBase {
 	 * e.g. for testing purposes.
 	 */
 	@Autowired @Qualifier("fooService")
-    ServiceRegistration<Foo> fooServiceRegistration;
+	ServiceRegistration<Foo> fooServiceRegistration;
 
-    @Test
-    public void testFooServiceRegistration() {
-    	assertNotNull(fooServiceRegistration);
-    	assertNotNull(fooServiceRegistration.getReference());
-    	assertEquals(4, fooServiceRegistration.getReference().getPropertyKeys().length);
-    	assertArrayEquals(new String[] {AutoCloseable.class.getName(), Foo.class.getName()}, (String[])fooServiceRegistration.getReference().getProperty("objectClass"));
-    	assertNull(fooServiceRegistration.getReference().getProperty("baz"));
-    }
+	@Test
+	public void testFooServiceRegistration() {
+		assertNotNull(fooServiceRegistration);
+		assertNotNull(fooServiceRegistration.getReference());
+		assertEquals(4, fooServiceRegistration.getReference().getPropertyKeys().length);
+		assertArrayEquals(new String[] {AutoCloseable.class.getName(), Foo.class.getName()}, (String[])fooServiceRegistration.getReference().getProperty("objectClass"));
+		assertNull(fooServiceRegistration.getReference().getProperty("baz"));
+	}
 
 	/* ***************************************************************************************************
 	 * SCENARIO 2: Register a bean as a service with service properties
@@ -72,16 +72,16 @@ public class RegisterServiceTest extends TestBase {
 	}
 
 	@Autowired @Qualifier("foo2Service")
-    ServiceRegistration<Foo> foo2ServiceRegistration;
+	ServiceRegistration<Foo> foo2ServiceRegistration;
 
-    @Test
-    public void testFoo2ServiceRegistration() {
-    	assertNotNull(foo2ServiceRegistration);
-    	assertNotNull(foo2ServiceRegistration.getReference());
-    	assertEquals(5, foo2ServiceRegistration.getReference().getPropertyKeys().length);
-    	assertArrayEquals(new String[] {AutoCloseable.class.getName(), Foo.class.getName()}, (String[])foo2ServiceRegistration.getReference().getProperty("objectClass"));
-    	assertEquals("boff", foo2ServiceRegistration.getReference().getProperty("baz"));
-    }
+	@Test
+	public void testFoo2ServiceRegistration() {
+		assertNotNull(foo2ServiceRegistration);
+		assertNotNull(foo2ServiceRegistration.getReference());
+		assertEquals(5, foo2ServiceRegistration.getReference().getPropertyKeys().length);
+		assertArrayEquals(new String[] {AutoCloseable.class.getName(), Foo.class.getName()}, (String[])foo2ServiceRegistration.getReference().getProperty("objectClass"));
+		assertEquals("boff", foo2ServiceRegistration.getReference().getProperty("baz"));
+	}
 
 	/* ***************************************************************************************************
 	 * SCENARIO 3: Register a bean as a service using a narrower set of types.
@@ -101,14 +101,14 @@ public class RegisterServiceTest extends TestBase {
 	 * e.g. for testing purposes.
 	 */
 	@Autowired @Qualifier("foo3Service")
-    ServiceRegistration<AutoCloseable> foo3ServiceRegistration;
+	ServiceRegistration<AutoCloseable> foo3ServiceRegistration;
 
-    @Test
-    public void testFoo3ServiceRegistration() {
-    	assertNotNull(foo3ServiceRegistration);
-    	assertNotNull(foo3ServiceRegistration.getReference());
-    	assertEquals(4, foo3ServiceRegistration.getReference().getPropertyKeys().length);
-    	assertArrayEquals(new String[] {AutoCloseable.class.getName()}, (String[])foo3ServiceRegistration.getReference().getProperty("objectClass"));
-    }
+	@Test
+	public void testFoo3ServiceRegistration() {
+		assertNotNull(foo3ServiceRegistration);
+		assertNotNull(foo3ServiceRegistration.getReference());
+		assertEquals(4, foo3ServiceRegistration.getReference().getPropertyKeys().length);
+		assertArrayEquals(new String[] {AutoCloseable.class.getName()}, (String[])foo3ServiceRegistration.getReference().getProperty("objectClass"));
+	}
 
 }

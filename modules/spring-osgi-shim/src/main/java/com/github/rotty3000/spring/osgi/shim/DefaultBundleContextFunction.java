@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
- * Works when the bean is inside a bundle with the spring
- * context and running in an OSGi Framework.
+ * Works when the bean is inside a bundle with the spring context and running in
+ * an OSGi Framework.
  *
  * If not running inside of OSGi, for instance where the framework is embedded
  * and spring is a peer or parent of the framework, a bean could be provided
@@ -22,8 +22,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Scope("osgi")
-public class DefaultBundleContextFunction
-	implements FactoryBean<Function<Class<?>, BundleContext>> {
+public class DefaultBundleContextFunction implements FactoryBean<Function<Class<?>, BundleContext>> {
 
 	@Override
 	public Function<Class<?>, BundleContext> getObject() throws Exception {

@@ -50,10 +50,10 @@ public class OSGiShim implements AutoCloseable {
 
 	@SuppressWarnings("unchecked")
 	public <T> Supplier<T> getService(Class<T> clazz, String filterString) {
-		ServiceTracker<?,?> serviceTracker = trackerLists.computeIfAbsent(
+		ServiceTracker<?, ?> serviceTracker = trackerLists.computeIfAbsent(
 			new ServiceKey(clazz, filterString), k -> open(clazz, filterString));
 
-		return () -> (T)(serviceTracker.isEmpty() ? null : serviceTracker.getService());
+		return () -> (T) (serviceTracker.isEmpty() ? null : serviceTracker.getService());
 	}
 
 	public <S> ServiceRegistration<S> registerService(S bean) {
@@ -69,15 +69,18 @@ public class OSGiShim implements AutoCloseable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <S> ServiceRegistration<S> registerService(S bean, List<String> serviceTypes, Map<String, Object> properties) {
+	public <S> ServiceRegistration<S> registerService(
+		S bean, List<String> serviceTypes, Map<String, Object> properties) {
+
 		requireNonNull(bean, "bean must not be null");
 		if (serviceTypes.isEmpty()) {
-			throw new IllegalArgumentException("at least one service type must be specified to publish bean " + bean + " as a service");
+			throw new IllegalArgumentException(
+				"at least one service type must be specified to publish bean " + bean + " as a service");
 		}
 		ServiceRegistration<S> registration = null;
 		try {
-			return registration = (ServiceRegistration<S>)bundleContextFunction.apply(bean.getClass()).registerService(
-				serviceTypes.toArray(new String[0]), bean, getServiceProperties(properties));
+			return registration = (ServiceRegistration<S>) bundleContextFunction.apply(bean.getClass())
+				.registerService(serviceTypes.toArray(new String[0]), bean, getServiceProperties(properties));
 		}
 		finally {
 			if (registration != null) {
@@ -89,17 +92,14 @@ public class OSGiShim implements AutoCloseable {
 	@EventListener(classes = ContextStoppedEvent.class)
 	@Override
 	public void close() throws Exception {
-		registrations.removeIf(
-			reg -> {
-				try {
-					reg.unregister();
-				}
-				catch (Exception e) {
-					// ignore; this means it was already unregistered
-				}
-				return true;
+		registrations.removeIf(reg -> {
+			try {
+				reg.unregister();
+			} catch (Exception e) {
+				// ignore; this means it was already unregistered
 			}
-		);
+			return true;
+		});
 		trackerLists.forEach((k, v) -> v.close());
 		trackerLists.clear();
 	}
@@ -107,9 +107,13 @@ public class OSGiShim implements AutoCloseable {
 	private static List<String> filteredClassNames(Object bean) {
 		List<String> list = Arrays.stream(
 			bean.getClass().getInterfaces()
-		).map(Class::getName).filter(
+		).map(
+			Class::getName
+		).filter(
 			OSGiShim::filterTypes
-		).collect(toCollection(ArrayList::new));
+		).collect(
+			toCollection(ArrayList::new)
+		);
 
 		if (list.isEmpty()) {
 			list.add(bean.getClass().getName());
@@ -127,13 +131,12 @@ public class OSGiShim implements AutoCloseable {
 		"org.springframework.aop.framework.Advised",
 		"org.springframework.core.DecoratingProxy",
 		"org.springframework.cglib.proxy.Factory",
-		Serializable.class.getName()
-	);
+		Serializable.class.getName());
 
 	private Dictionary<String, Object> getServiceProperties(Map<String, Object> properties) {
 		Hashtable<String, Object> copy = new Hashtable<>();
 		if (properties != null) {
-			properties.forEach((k,v) -> copy.put(String.valueOf(k), v));
+			properties.forEach((k, v) -> copy.put(String.valueOf(k), v));
 		}
 		return copy;
 	}
@@ -155,15 +158,14 @@ public class OSGiShim implements AutoCloseable {
 		finally {
 			if (serviceTracker != null) {
 				serviceTracker.open();
-			}
-			else {
+			} else {
 				log.debug("Tracking {} with {}", clazz.getName(), filterString);
 			}
 		}
 	}
 
 	private static final RuntimeException duck(Throwable t) {
-		OSGiShim.<RuntimeException> throwsUnchecked(t);
+		OSGiShim.<RuntimeException>throwsUnchecked(t);
 		throw new AssertionError("unreachable");
 	}
 
@@ -175,15 +177,18 @@ public class OSGiShim implements AutoCloseable {
 	private static class ServiceKey {
 		private final String className;
 		private final String filterString;
+
 		public ServiceKey(Class<?> clazz, String filterString) {
 			super();
 			this.className = clazz.getName();
 			this.filterString = filterString;
 		}
+
 		@Override
 		public int hashCode() {
 			return Objects.hash(className, filterString);
 		}
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj) {
