@@ -46,10 +46,6 @@ public class GetServiceTest extends TestBase {
 		return shim.getService(Foo.class);
 	}
 
-	/*
-	 * If you've named the bean you can get it if needed.
-	 * e.g. for testing purposes.
-	 */
 	@Autowired @Qualifier("foo1Service")
 	Supplier<Foo> foo1Service;
 

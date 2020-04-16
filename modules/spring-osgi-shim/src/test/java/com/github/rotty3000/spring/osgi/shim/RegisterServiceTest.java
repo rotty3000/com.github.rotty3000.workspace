@@ -44,10 +44,6 @@ public class RegisterServiceTest extends TestBase {
 		return shim.registerService(foo);
 	}
 
-	/*
-	 * If you've named the bean you can get it if needed.
-	 * e.g. for testing purposes.
-	 */
 	@Autowired @Qualifier("fooService")
 	ServiceRegistration<Foo> fooServiceRegistration;
 
@@ -96,10 +92,6 @@ public class RegisterServiceTest extends TestBase {
 		return shim.registerService(foo, Arrays.asList(AutoCloseable.class.getName()));
 	}
 
-	/*
-	 * If you've named it you can get the registration if needed.
-	 * e.g. for testing purposes.
-	 */
 	@Autowired @Qualifier("foo3Service")
 	ServiceRegistration<AutoCloseable> foo3ServiceRegistration;
 
