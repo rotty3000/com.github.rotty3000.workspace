@@ -13,20 +13,19 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
 >
 	<!-- Need a bean that provides a "Function<Class<?>, BundleContext>"
-		 For this test case it's provided by the BaseTest class. -->
+		For this test case it's provided by the BaseTest class. However,
+		the following bean does this work when running in OSGi. -->
 	<!-- <bean class="com.github.rotty3000.spring.osgi.shim.DefaultBundleContextFunction" /> -->
 
 	<bean id="osgiShim" class="com.github.rotty3000.spring.osgi.shim.OSGiShim" />
 
-	<!-- Making a bean into a service for use by other bundles in OSGi -->
+	<!-- A business bean. -->
 	<bean id="foo" class="com.github.rotty3000.spring.osgi.shim.FooImpl" />
 
 	<bean name="makeFooService" factory-method="registerService" factory-bean="osgiShim" depends-on="foo">
-		<!-- The bean to make into a service -->
 		<constructor-arg index="0" ref="foo" />
 	</bean>
 
-	<!-- Getting Foo OSGi service as a bean using the factory -->
 	<bean name="getFooService" factory-method="getService" factory-bean="osgiShim" depends-on="makeFooService">
 		<constructor-arg index="0" value="com.github.rotty3000.spring.osgi.shim.Foo" />
 	</bean>

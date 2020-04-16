@@ -29,24 +29,24 @@ public class XMLConfigTest extends TestBase {
 	@Autowired @Qualifier("getFooService")
 	Supplier<Foo> getFooService;
 
-    @Test
-    public void testGetFooService() {
-    	assertNotNull(getFooService.get());
-    }
+	@Test
+	public void testGetFooService() {
+		assertNotNull(getFooService.get());
+	}
 
 	/* ***************************************************************************************************
 	 * SCENARIO 2: Register a bean as an OSGi service, result is a bean of type ServiceRegisration<T>
 	 */
-    @Autowired @Qualifier("makeFooService")
-    ServiceRegistration<Foo> makeFooServiceRegistration;
+	@Autowired @Qualifier("makeFooService")
+	ServiceRegistration<Foo> makeFooServiceRegistration;
 
-    @Test
-    public void testMakeFooServiceRegistration() {
-    	assertNotNull(makeFooServiceRegistration);
-    	assertNotNull(makeFooServiceRegistration.getReference());
-    	assertEquals(4, makeFooServiceRegistration.getReference().getPropertyKeys().length);
-    	assertArrayEquals(new String[] {AutoCloseable.class.getName(), Foo.class.getName()}, (String[])makeFooServiceRegistration.getReference().getProperty("objectClass"));
-    	assertNull(makeFooServiceRegistration.getReference().getProperty("baz"));
-    }
+	@Test
+	public void testMakeFooServiceRegistration() {
+		assertNotNull(makeFooServiceRegistration);
+		assertNotNull(makeFooServiceRegistration.getReference());
+		assertEquals(4, makeFooServiceRegistration.getReference().getPropertyKeys().length);
+		assertArrayEquals(new String[] {AutoCloseable.class.getName(), Foo.class.getName()}, (String[])makeFooServiceRegistration.getReference().getProperty("objectClass"));
+		assertNull(makeFooServiceRegistration.getReference().getProperty("baz"));
+	}
 
 }
