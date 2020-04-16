@@ -12,6 +12,7 @@ import org.osgi.framework.ServiceRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -40,12 +41,8 @@ public class GetServiceTest extends TestBase {
 	/* ***************************************************************************************************
 	 * SCENARIO 1: Get OSGi service as bean
 	 */
-	@Bean(name = "foo1Service")
-	public Supplier<Foo> foo1Service(
-			// This is just to force invocation order
-			@Autowired ServiceRegistration<Foo> registerAFoo,
-			@Autowired OSGiShim shim) {
-
+	@Bean(name = "foo1Service") @DependsOn("registerAFoo")
+	public Supplier<Foo> foo1Service(@Autowired OSGiShim shim) {
 		return shim.getService(Foo.class);
 	}
 
@@ -64,11 +61,8 @@ public class GetServiceTest extends TestBase {
 	/* ***************************************************************************************************
 	 * SCENARIO 2: Get OSGi service as bean, but it's missing or no matches
 	 */
-	@Bean(name = "foo2Service")
-	public Supplier<Foo> foo2Service(
-			// This is just to force invocation order
-			@Autowired ServiceRegistration<Foo> registerAFoo,
-			@Autowired OSGiShim shim) {
+	@Bean(name = "foo2Service") @DependsOn("registerAFoo")
+	public Supplier<Foo> foo2Service(@Autowired OSGiShim shim) {
 		return shim.getService(Foo.class, "(foo=bar)");
 	}
 
@@ -83,11 +77,8 @@ public class GetServiceTest extends TestBase {
 	/* ***************************************************************************************************
 	 * SCENARIO 3: Get OSGi service as bean, using a filter
 	 */
-	@Bean(name = "foo3Service")
-	public Supplier<Foo> foo3Service(
-			// This is just to force invocation order
-			@Autowired ServiceRegistration<Foo> registerAFoo,
-			@Autowired OSGiShim shim) {
+	@Bean(name = "foo3Service") @DependsOn("registerAFoo")
+	public Supplier<Foo> foo3Service(@Autowired OSGiShim shim) {
 		return shim.getService(Foo.class, "(key=value)");
 	}
 
