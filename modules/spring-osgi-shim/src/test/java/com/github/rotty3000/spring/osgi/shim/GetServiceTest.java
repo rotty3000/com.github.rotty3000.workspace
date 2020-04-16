@@ -6,17 +6,14 @@ import static org.junit.Assert.assertNull;
 import java.util.Collections;
 import java.util.function.Supplier;
 
-import javax.annotation.Resource;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.ServiceRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.github.rotty3000.spring.osgi.shim.OSGiShim;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = GetServiceTest.class)
@@ -56,7 +53,7 @@ public class GetServiceTest extends TestBase {
 	 * If you've named the bean you can get it if needed.
 	 * e.g. for testing purposes.
 	 */
-	@Resource(name = "foo1Service")
+	@Autowired @Qualifier("foo1Service")
 	Supplier<Foo> foo1Service;
 
     @Test
@@ -76,7 +73,7 @@ public class GetServiceTest extends TestBase {
 		return shim.getService(Foo.class, "(foo=bar)");
 	}
 
-	@Resource(name = "foo2Service")
+	@Autowired @Qualifier("foo2Service")
 	Supplier<Foo> foo2Service;
 
     @Test
@@ -95,7 +92,7 @@ public class GetServiceTest extends TestBase {
 		return shim.getService(Foo.class, "(key=value)");
 	}
 
-	@Resource(name = "foo3Service")
+	@Autowired @Qualifier("foo3Service")
 	Supplier<Foo> foo3Service;
 
     @Test

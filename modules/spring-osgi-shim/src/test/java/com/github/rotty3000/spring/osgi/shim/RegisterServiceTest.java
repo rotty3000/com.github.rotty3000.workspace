@@ -8,17 +8,14 @@ import static org.junit.Assert.assertNull;
 import java.util.Arrays;
 import java.util.Collections;
 
-import javax.annotation.Resource;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.ServiceRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.github.rotty3000.spring.osgi.shim.OSGiShim;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RegisterServiceTest.class)
@@ -51,7 +48,7 @@ public class RegisterServiceTest extends TestBase {
 	 * If you've named the bean you can get it if needed.
 	 * e.g. for testing purposes.
 	 */
-	@Resource(name = "fooService")
+	@Autowired @Qualifier("fooService")
     ServiceRegistration<Foo> fooServiceRegistration;
 
     @Test
@@ -74,7 +71,7 @@ public class RegisterServiceTest extends TestBase {
 		return shim.registerService(foo, Collections.singletonMap("baz", "boff"));
 	}
 
-	@Resource(name = "foo2Service")
+	@Autowired @Qualifier("foo2Service")
     ServiceRegistration<Foo> foo2ServiceRegistration;
 
     @Test
@@ -103,7 +100,7 @@ public class RegisterServiceTest extends TestBase {
 	 * If you've named it you can get the registration if needed.
 	 * e.g. for testing purposes.
 	 */
-	@Resource(name = "foo3Service")
+	@Autowired @Qualifier("foo3Service")
     ServiceRegistration<AutoCloseable> foo3ServiceRegistration;
 
     @Test

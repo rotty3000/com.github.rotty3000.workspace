@@ -7,11 +7,11 @@ import static org.junit.Assert.assertNull;
 
 import java.util.function.Supplier;
 
-import javax.annotation.Resource;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.osgi.framework.ServiceRegistration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,7 +26,7 @@ public class XMLConfigTest extends TestBase {
 	/* ***************************************************************************************************
 	 * SCENARIO 1: Get OSGi service as bean
 	 */
-	@Resource(name = "getFooService")
+	@Autowired @Qualifier("getFooService")
 	Supplier<Foo> getFooService;
 
     @Test
@@ -35,9 +35,9 @@ public class XMLConfigTest extends TestBase {
     }
 
 	/* ***************************************************************************************************
-	 * SCENARIO 2: Get OSGi service as bean, when there is no service
+	 * SCENARIO 2: Register a bean as an OSGi service, result is a bean of type ServiceRegisration<T>
 	 */
-	@Resource(name = "makeFooService")
+    @Autowired @Qualifier("makeFooService")
     ServiceRegistration<Foo> makeFooServiceRegistration;
 
     @Test
