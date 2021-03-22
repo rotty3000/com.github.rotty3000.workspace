@@ -5,7 +5,8 @@
 **/.sass-cache
 **/.settings
 **/bin
-**/build
+**/build/
+!**/javascript/build/
 **/build_gradle
 **/node_modules
 **/test-coverage
