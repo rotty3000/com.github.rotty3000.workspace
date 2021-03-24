@@ -1,0 +1,7 @@
+allprojects {
+	plugins.withId("com.liferay.node") {
+		node.global = true
+		node.nodeVersion = '12.21.0'
+		node.npmVersion = '6.14.11'
+	}
+}
