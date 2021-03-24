@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"module": "es6",
+		"moduleResolution": "node",
+		"noImplicitAny": true,
+		"outDir": "./build/resources/main/META-INF/resources/",
+		"rootDir": "./src/main/resources/META-INF/resources/",
+		"sourceMap": true,
+		"strict": true,
+		"target": "es6"
+	},
+	"include": [
+		"./src/main/resources/META-INF/resources/**/*"
+	]
+}

@@ -1,3 +1,5 @@
+export {};
+
 const user = {
 	firstName: "Rotty",
 	lastName: "3000",
