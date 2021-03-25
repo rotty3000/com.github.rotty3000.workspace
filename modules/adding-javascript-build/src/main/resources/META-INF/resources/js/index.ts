@@ -1,5 +1,3 @@
-export {};
-
 const user = {
 	firstName: "Rotty",
 	lastName: "3000",
@@ -7,3 +5,5 @@ const user = {
 };
 
 console.log("User: %O", user);
+
+export {};
