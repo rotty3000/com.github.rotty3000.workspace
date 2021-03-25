@@ -2,4 +2,6 @@ Bundle-Name: adding-javascript-build
 Bundle-SymbolicName: adding.javascript.build
 Bundle-Version: 1.0.0
 
+Liferay-JS-Resources-Top-Head: /js/bundle.js?ts=${tstamp}
+Liferay-Top-Head-Weight: 1000
 Web-ContextPath: /adding-javascript-build
