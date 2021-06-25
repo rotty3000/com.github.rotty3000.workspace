@@ -1,0 +1,5 @@
+dependencies {
+	compileInclude 'com.google.cloud:google-cloud-pubsub'
+
+	testCompile "junit:junit:4.13.1"
+}

@@ -1,0 +1,24 @@
+Bundle-Name: google-pub-sub-poc
+Bundle-Version: 1.0.0
+
+Import-Package: \
+	!com.google.protobuf.nano.*,\
+	!com.jcraft.jzlib.*,\
+	!com.ning.compress.*,\
+	!com.oracle.svm.core.annotate.*,\
+	!lzma.sdk.*,\
+	!net.jpountz.lz4.*,\
+	!net.jpountz.xxhash.*,\
+	!org.apache.avalon.framework.logger.*,\
+	!org.apache.log.*,\
+	!org.apache.logging.log4j.*,\
+	!org.bouncycastle.asn1.x500.*,\
+	!org.bouncycastle.cert.*,\
+	!org.bouncycastle.jce.provider.*,\
+	!org.bouncycastle.operator.*,\
+	!org.eclipse.jetty.alpn.*,\
+	!org.eclipse.jetty.npn.*,\
+	!org.jboss.marshalling.*,\
+	!reactor.blockhound.*,\
+	!sun.security.x509.*,\
+	*
